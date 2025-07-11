@@ -15501,7 +15501,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4b66be5b518468d934fd7addf70c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayLoadScene: 0.5
   finishEffect: {fileID: 10551690}
   winSource: {fileID: 0}
 --- !u!82 &883519088
@@ -17497,7 +17496,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f3dd9a565e6495899e324fed8d31da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayLoadScene: 0.5
   crashEffect: {fileID: 158179663}
   losseSource: {fileID: 0}
 --- !u!114 &1685147845
@@ -17697,6 +17695,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1774035571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1774035573}
+  - component: {fileID: 1774035572}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1774035572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774035571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650702d4c59a442e4922629a046db6fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayLoadScene: 1
+  sceneName: SnowBoarder
+--- !u!4 &1774035573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774035571}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1836993776
 GameObject:
   m_ObjectHideFlags: 0
@@ -18324,3 +18368,4 @@ SceneRoots:
   - {fileID: 1685147839}
   - {fileID: 883519085}
   - {fileID: 771665782}
+  - {fileID: 1774035573}

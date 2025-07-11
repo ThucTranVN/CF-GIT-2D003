@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 public class CrashDetector : MonoBehaviour
 {
     [SerializeField]
-    private float delayLoadScene = 1f;
-    [SerializeField]
     private ParticleSystem crashEffect;
     [SerializeField]
     private AudioSource losseSource;
@@ -22,12 +20,7 @@ public class CrashDetector : MonoBehaviour
             Debug.Log("Hit my head");
             crashEffect.Play();
             losseSource.Play();
-            Invoke(nameof(ReloadScene), delayLoadScene);
+            FindFirstObjectByType<SBGameManager>()?.ReloadScene();
         }
-    }
-
-    private void ReloadScene()
-    {
-        SceneManager.LoadScene("SnowBoarder");
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 public class Finisher : MonoBehaviour
 {
     [SerializeField]
-    private float delayLoadScene = 1f;
-    [SerializeField]
     private ParticleSystem finishEffect;
     [SerializeField]
     private AudioSource winSource;
@@ -22,13 +20,15 @@ public class Finisher : MonoBehaviour
             Debug.Log("You've finished");
             finishEffect.Play();
             winSource.Play();
-            Invoke(nameof(ReloadScene), delayLoadScene);
+            FindFirstObjectByType<SBGameManager>()?.ReloadScene();
+
+
+            //SBGameManager sBGameManager = FindFirstObjectByType<SBGameManager>();
+            //if(sBGameManager != null)
+            //{
+            //    sBGameManager.ReloadScene();
+            //}
         }
     }
 
-    //TODO: Refactor duplicate
-    private void ReloadScene()
-    {
-        SceneManager.LoadScene("SnowBoarder");
-    }
 }
