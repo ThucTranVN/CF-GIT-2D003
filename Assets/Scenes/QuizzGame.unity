@@ -330,6 +330,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276465947}
   m_CullTransparentMesh: 1
+--- !u!1 &295421098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 295421099}
+  - component: {fileID: 295421100}
+  m_Layer: 0
+  m_Name: Timer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &295421099
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295421098}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &295421100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295421098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf45ff48537df469ca004af3f58487ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToCompleteQuestion: 10
+  timeToShowCorrectAnswer: 5
+  isLoadNextQuestion: 0
+  isAnsweringQuestion: 0
 --- !u!1 &382447488
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,7 +681,7 @@ GameObject:
   - component: {fileID: 840088114}
   - component: {fileID: 840088113}
   m_Layer: 5
-  m_Name: Timer
+  m_Name: TimerImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -679,13 +727,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 801340330791846111, guid: c1b24dd114a324c54a3e160eccfcb331, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillClockwise: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &840088114
@@ -1707,7 +1755,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556c8b28842334b8ca9e0c6363a0b4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quizzSO: {fileID: 11400000, guid: c7813e4b7166148b48920721acb63cc2, type: 2}
+  quizzes:
+  - {fileID: 11400000, guid: c7813e4b7166148b48920721acb63cc2, type: 2}
+  - {fileID: 11400000, guid: 7d2004c379985466cb9095ad12aec315, type: 2}
+  - {fileID: 11400000, guid: 5a591c58177cc4106834c9f0e8ad35c4, type: 2}
+  - {fileID: 11400000, guid: cfe53c36010b043eba33c0f713f1f8be, type: 2}
+  - {fileID: 11400000, guid: 4ef45056c3caa4224841e94b8c71c4b9, type: 2}
+  currentQuizzSO: {fileID: 0}
   questionText: {fileID: 256429742}
   answerButtons:
   - {fileID: 1631519537}
@@ -1716,6 +1770,8 @@ MonoBehaviour:
   - {fileID: 2115098834}
   defaultSprite: {fileID: -2421234149185767044, guid: 5709bd381069e4bf0b261df12d437f72, type: 3}
   correctSprite: {fileID: -4659264650518790821, guid: 2871cad2816f94197830ef860eff44c0, type: 3}
+  timerImage: {fileID: 840088113}
+  quizTimer: {fileID: 295421100}
 --- !u!1 &1830995039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2369,3 +2425,4 @@ SceneRoots:
   - {fileID: 817829793}
   - {fileID: 1782303423}
   - {fileID: 463921425}
+  - {fileID: 295421099}
