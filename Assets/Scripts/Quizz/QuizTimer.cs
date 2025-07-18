@@ -43,7 +43,7 @@ public class QuizTimer : MonoBehaviour
             }
         }
 
-        Debug.Log($"timerValue: {timerValue}");
+        //Debug.Log($"timerValue: {timerValue}");
     }
 
     public void CancelTimer()

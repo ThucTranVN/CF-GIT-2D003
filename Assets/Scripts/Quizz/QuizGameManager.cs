@@ -21,13 +21,23 @@ public class QuizGameManager : MonoBehaviour
     private Image timerImage;
     [SerializeField]
     private QuizTimer quizTimer;
+    [SerializeField]
+    private QuizScore quizScore;
+    [SerializeField]
+    private Slider progressSlider;
+    [SerializeField]
+    private TextMeshProUGUI progressText;
 
     private bool hasAnswered;
-    private int correctAnswerIndex;
+    private int currentProgess = 0;
+
+    [SerializeField]
+    private GameObject winCanvas;
 
     void Start()
     {
-        //GetNextQuestion();
+        progressSlider.maxValue = GetTotalQuestion();
+        winCanvas.SetActive(false);
     }
 
     private void Update()
@@ -48,6 +58,11 @@ public class QuizGameManager : MonoBehaviour
                 SetButtonState(false);
             }
         }
+    }
+
+    public int GetTotalQuestion()
+    {
+        return quizzes.Count;
     }
 
     private void DisplayQuestion()
@@ -78,7 +93,8 @@ public class QuizGameManager : MonoBehaviour
             questionText.text = "Correct!";
             Image btnImage = answerButtons[index].GetComponent<Image>();
             btnImage.sprite = correctSprite;
-
+            quizScore.IncrementCorrectAnswers();
+            quizScore.DisplayScore();
         }
         else //Tra loi sai
         {
@@ -94,10 +110,17 @@ public class QuizGameManager : MonoBehaviour
     {
         if(quizzes.Count > 0)
         {
+            currentProgess++;
+            progressSlider.value = currentProgess;
+            progressText.text = $"Current progress: {currentProgess}/{progressSlider.maxValue}";
             ResetButtonsSprite();
             SetButtonState(true);
             GetRandomQuestion();
             DisplayQuestion();
+        }
+        else
+        {
+            winCanvas.SetActive(true);
         }
     }
 
