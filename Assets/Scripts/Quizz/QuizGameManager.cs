@@ -27,7 +27,7 @@ public class QuizGameManager : MonoBehaviour
     private Slider progressSlider;
     [SerializeField]
     private TextMeshProUGUI progressText;
-
+    private bool isFinished = false;
     private bool hasAnswered;
     private int currentProgess = 0;
 
@@ -42,6 +42,8 @@ public class QuizGameManager : MonoBehaviour
 
     private void Update()
     {
+        if (isFinished) return;
+
         if(timerImage != null && quizTimer != null)
         {
             timerImage.fillAmount = quizTimer.FillFraction;
@@ -121,6 +123,7 @@ public class QuizGameManager : MonoBehaviour
         else
         {
             winCanvas.SetActive(true);
+            isFinished = true;
         }
     }
 
