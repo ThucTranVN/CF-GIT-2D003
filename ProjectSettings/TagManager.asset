@@ -63,5 +63,8 @@ TagManager:
   - name: Car
     uniqueID: 1746509891
     locked: 0
+  - name: Player
+    uniqueID: 2269578305
+    locked: 0
   m_RenderingLayers:
   - Default

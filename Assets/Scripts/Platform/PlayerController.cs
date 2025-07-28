@@ -3,6 +3,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
+    private GameObject goStanding;
+    [SerializeField]
+    private GameObject goBall;
+    [SerializeField]
     private BulletController bulletPrefab;
     [SerializeField]
     private Transform shootPosition;
@@ -20,38 +24,106 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed;
     [SerializeField]
     private float jumpForce;
+    [SerializeField]
+    private float dashSpeed;
+    [SerializeField]
+    private float dashTime;
+    [SerializeField]
+    private float becomeBallTime;
 
+    [SerializeField]
+    private SpriteRenderer playerSR;
+    [SerializeField]
+    private SpriteRenderer playerDashEffectSR;
+    [SerializeField]
+    private float dashEffectLifeTime;
+    [SerializeField]
+    private float timeBetweenEachDashEffect;
+    [SerializeField]
+    private float dashCoolDownTime;
+
+    private float becomeBallCounter;
+    private float dashCoolDownCounter;
+    private float dashEffectCounter;
+    private float dashCounter;
     private bool isOnGround;
+    private bool isDoubleJump;
+
+    private int speedParam = Animator.StringToHash("speed");
+    private int isOnGroundParam = Animator.StringToHash("isOnGround");
+    private int shotParam = Animator.StringToHash("shot");
+    private int doubleJumpParam = Animator.StringToHash("doubleJump");
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        //Debug.Log($"speedParam {speedParam}");
+        //Debug.Log($"isOnGroundParam {isOnGroundParam}");
+        //Debug.Log($"shotParam {shotParam}");
+        //Debug.Log($"doubleJumpParam {doubleJumpParam}");
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Move player
-        float xAxis = Input.GetAxisRaw("Horizontal");
-        playerRb.linearVelocity = new Vector2(xAxis * moveSpeed, playerRb.linearVelocity.y);
+        if(dashCoolDownCounter > 0)
+        {
+            dashCoolDownCounter -= Time.deltaTime;
+        }
+        else
+        {
+            if (Input.GetButtonDown("Fire2"))
+            {
+                dashCounter = dashTime;
+                ShowDashEffect();
+            }
+        }
 
-        //Change player direction
-        if(playerRb.linearVelocityX < 0) //left
+
+        if(dashCounter > 0) //Player Dash
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            dashCounter -= Time.deltaTime;
+            playerRb.linearVelocity = new Vector2(dashSpeed * transform.localScale.x, playerRb.linearVelocity.y);
+            dashEffectCounter -= Time.deltaTime;
+            if(dashEffectCounter <= 0)
+            {
+                ShowDashEffect();
+            }
+            dashCoolDownCounter = dashCoolDownTime;
         }
-        else if(playerRb.linearVelocityX > 0) //right
+        else
         {
-            transform.localScale = Vector3.one;
-        }
+            //Move player
+            float xAxis = Input.GetAxisRaw("Horizontal");
+            playerRb.linearVelocity = new Vector2(xAxis * moveSpeed, playerRb.linearVelocity.y);
+
+            //Change player direction
+            if (playerRb.linearVelocityX < 0) //left
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else if (playerRb.linearVelocityX > 0) //right
+            {
+                transform.localScale = Vector3.one;
+            }
+        } 
 
         //Check player is on ground
         isOnGround = Physics2D.OverlapCircle(groundPoint.position, 0.2f, layerToCheck);
 
         //Player jump
-        if (Input.GetButtonDown("Jump") && isOnGround)
+        if (Input.GetButtonDown("Jump") && (isOnGround || isDoubleJump))
         {
+            if (isOnGround)
+            {
+                isDoubleJump = true;
+            }
+            else
+            {
+                animStandingState.SetTrigger(doubleJumpParam);
+                isDoubleJump = false;
+            }
+
             playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, jumpForce);
         }
 
@@ -60,10 +132,20 @@ public class PlayerController : MonoBehaviour
         {
             BulletController bullet = Instantiate(bulletPrefab, shootPosition.position, shootPosition.rotation);
             bullet.SetDirection(new Vector2(transform.localScale.x, 0));
+            animStandingState.SetTrigger(shotParam);
         }
 
         //Animation
-        animStandingState.SetBool("isOnGround", isOnGround);
-        animStandingState.SetFloat("speed", Mathf.Abs(playerRb.linearVelocityX));
+        animStandingState.SetBool(isOnGroundParam, isOnGround);
+        animStandingState.SetFloat(speedParam, Mathf.Abs(playerRb.linearVelocityX));
+    }
+
+    private void ShowDashEffect()
+    {
+        SpriteRenderer spriteRenderer = Instantiate(playerDashEffectSR, transform.position, transform.rotation);
+        spriteRenderer.sprite = playerSR.sprite;
+        spriteRenderer.transform.localScale = transform.localScale;
+        Destroy(spriteRenderer.gameObject, dashEffectLifeTime);
+        dashEffectCounter = timeBetweenEachDashEffect;
     }
 }
