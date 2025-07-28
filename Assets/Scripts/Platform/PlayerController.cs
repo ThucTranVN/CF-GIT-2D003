@@ -3,6 +3,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
+    private BulletController bulletPrefab;
+    [SerializeField]
+    private Transform shootPosition;
+    [SerializeField]
     private Rigidbody2D playerRb;
     [SerializeField]
     private LayerMask layerToCheck;
@@ -51,6 +55,12 @@ public class PlayerController : MonoBehaviour
             playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, jumpForce);
         }
 
+        //Shoot
+        if (Input.GetButtonDown("Fire1"))
+        {
+            BulletController bullet = Instantiate(bulletPrefab, shootPosition.position, shootPosition.rotation);
+            bullet.SetDirection(new Vector2(transform.localScale.x, 0));
+        }
 
         //Animation
         animStandingState.SetBool("isOnGround", isOnGround);
