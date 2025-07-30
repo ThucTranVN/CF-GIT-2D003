@@ -9,7 +9,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private BulletController bulletPrefab;
     [SerializeField]
+    private GameObject bombPrefab;
+    [SerializeField]
     private Transform shootPosition;
+    [SerializeField]
+    private Transform bombSpawnPosition;
     [SerializeField]
     private Rigidbody2D playerRb;
     [SerializeField]
@@ -19,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Animator animStandingState;
+    [SerializeField]
+    private Animator animBallState;
 
     [SerializeField]
     private float moveSpeed;
@@ -50,9 +56,13 @@ public class PlayerController : MonoBehaviour
     private bool isDoubleJump;
 
     private int speedParam = Animator.StringToHash("speed");
+    private int ballSpeedParam = Animator.StringToHash("ballSpeed");
     private int isOnGroundParam = Animator.StringToHash("isOnGround");
     private int shotParam = Animator.StringToHash("shot");
     private int doubleJumpParam = Animator.StringToHash("doubleJump");
+
+    [SerializeField]
+    private PlayerAbilityTracker playerAbilityTracker;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -72,7 +82,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire2")
+                && goStanding.activeSelf
+                && playerAbilityTracker.IsCanDash)
             {
                 dashCounter = dashTime;
                 ShowDashEffect();
@@ -112,7 +124,7 @@ public class PlayerController : MonoBehaviour
         isOnGround = Physics2D.OverlapCircle(groundPoint.position, 0.2f, layerToCheck);
 
         //Player jump
-        if (Input.GetButtonDown("Jump") && (isOnGround || isDoubleJump))
+        if (Input.GetButtonDown("Jump") && (isOnGround || (isDoubleJump && playerAbilityTracker.IsCanDoubleJump)))
         {
             if (isOnGround)
             {
@@ -130,14 +142,66 @@ public class PlayerController : MonoBehaviour
         //Shoot
         if (Input.GetButtonDown("Fire1"))
         {
-            BulletController bullet = Instantiate(bulletPrefab, shootPosition.position, shootPosition.rotation);
-            bullet.SetDirection(new Vector2(transform.localScale.x, 0));
-            animStandingState.SetTrigger(shotParam);
+            if (goStanding.activeSelf)
+            {
+                BulletController bullet = Instantiate(bulletPrefab, shootPosition.position, shootPosition.rotation);
+                bullet.SetDirection(new Vector2(transform.localScale.x, 0));
+                animStandingState.SetTrigger(shotParam);
+            }
+            else if (goBall.activeSelf && playerAbilityTracker.IsCanDropBomb)
+            {
+                Instantiate(bombPrefab, bombSpawnPosition.position, bombSpawnPosition.rotation);
+            }
+
+        }
+
+        //Ball mode
+        if (!goBall.activeSelf)
+        {
+            if(Input.GetAxisRaw("Vertical") < -0.9f && playerAbilityTracker.IsCanBecomeBall)
+            {
+                becomeBallCounter -= Time.deltaTime;
+
+                if(becomeBallCounter <= 0)
+                {
+                    goBall.SetActive(true);
+                    goStanding.SetActive(false);
+                }
+            }
+            else
+            {
+                becomeBallCounter = becomeBallTime;
+            }
+        }
+        else
+        {
+            if (Input.GetAxisRaw("Vertical") > 0.9f)
+            {
+                becomeBallCounter -= Time.deltaTime;
+
+                if (becomeBallCounter <= 0)
+                {
+                    goBall.SetActive(false);
+                    goStanding.SetActive(true);
+                }
+            }
+            else
+            {
+                becomeBallCounter = becomeBallTime;
+            }
         }
 
         //Animation
-        animStandingState.SetBool(isOnGroundParam, isOnGround);
-        animStandingState.SetFloat(speedParam, Mathf.Abs(playerRb.linearVelocityX));
+        if (goStanding.activeSelf)
+        {
+            animStandingState.SetBool(isOnGroundParam, isOnGround);
+            animStandingState.SetFloat(speedParam, Mathf.Abs(playerRb.linearVelocityX));
+        }
+
+        if (goBall.activeSelf)
+        {
+            animBallState.SetFloat(ballSpeedParam, Mathf.Abs(playerRb.linearVelocityX));
+        }
     }
 
     private void ShowDashEffect()
