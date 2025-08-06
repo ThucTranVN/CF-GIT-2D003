@@ -5,7 +5,7 @@ public class EnemyPatroller : MonoBehaviour
     [SerializeField]
     private Transform[] patrolPoints;
     private int currentPoint;
-    private float waitCounter;
+    private float waitCounter;  
     [SerializeField]
     private float moveSpeed;
     [SerializeField]
@@ -14,6 +14,10 @@ public class EnemyPatroller : MonoBehaviour
     private float jumpForce;
     [SerializeField]
     private Rigidbody2D enemyRb;
+    [SerializeField]
+    private Animator enemyAnimator;
+
+    private int walkerSpeedParam = Animator.StringToHash("walkerSpeed");
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -64,5 +68,7 @@ public class EnemyPatroller : MonoBehaviour
                 }
             }
         }
+
+        enemyAnimator.SetFloat(walkerSpeedParam, Mathf.Abs(enemyRb.linearVelocity.x));
     }
 }

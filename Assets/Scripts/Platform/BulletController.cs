@@ -10,6 +10,8 @@ public class BulletController : MonoBehaviour
     private Rigidbody2D BulletRb;
     [SerializeField]
     private GameObject impactEffect;
+    [SerializeField]
+    private int damageAmount = 1;
 
     // Update is called once per frame
     void Update()
@@ -24,6 +26,17 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Enemy"))
+        {
+            //collision.GetComponent<EnemyHealthController>().DamageEnemy(damageAmount);
+
+            EnemyHealthController enemyHealth = collision.GetComponent<EnemyHealthController>();
+            if(enemyHealth != null)
+            {
+                enemyHealth.DamageEnemy(damageAmount);
+            }
+        }
+
         Instantiate(impactEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
