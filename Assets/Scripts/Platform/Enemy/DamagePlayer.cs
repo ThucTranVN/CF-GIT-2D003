@@ -4,16 +4,17 @@ public class DamagePlayer : MonoBehaviour
 {
     [SerializeField]
     private int damageAmount = 1;
+    [SerializeField]
+    private bool isDestroyOnDamage;
+    [SerializeField]
+    private GameObject destroyEffect;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerHealthController playerHealth = collision.gameObject.GetComponentInParent<PlayerHealthController>();
-            if(playerHealth != null)
-            {
-                playerHealth.DamagePlayer(damageAmount);
-            }
+            DealDamage(playerHealth);
         }
     }
 
@@ -22,9 +23,24 @@ public class DamagePlayer : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerHealthController playerHealth = collision.gameObject.GetComponentInParent<PlayerHealthController>();
-            if (playerHealth != null)
+            DealDamage(playerHealth);
+        }
+    }
+
+    private void DealDamage(PlayerHealthController playerHealth)
+    {
+        if (playerHealth != null)
+        {
+            playerHealth.DamagePlayer(damageAmount);
+
+            if (isDestroyOnDamage)
             {
-                playerHealth.DamagePlayer(damageAmount);
+                if(destroyEffect != null)
+                {
+                    Instantiate(destroyEffect, transform.position, transform.rotation);
+                }
+
+                Destroy(this.gameObject);
             }
         }
     }

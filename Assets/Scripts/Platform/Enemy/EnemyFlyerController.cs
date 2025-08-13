@@ -3,6 +3,8 @@ using UnityEngine;
 public class EnemyFlyerController : MonoBehaviour
 {
     [SerializeField]
+    private Animator enemyAnim;
+    [SerializeField]
     private Transform playerTf;
     [SerializeField]
     private float chaseRange;
@@ -12,6 +14,7 @@ public class EnemyFlyerController : MonoBehaviour
     private float turnSpeed;
 
     private bool isChasing;
+    private int IsChasingParam = Animator.StringToHash("isChasing");
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +31,7 @@ public class EnemyFlyerController : MonoBehaviour
             if(Vector3.Distance(transform.position, playerTf.position) < chaseRange)
             {
                 isChasing = true;
+                enemyAnim.SetBool(IsChasingParam, isChasing);
             }
         }
         else
@@ -38,7 +42,7 @@ public class EnemyFlyerController : MonoBehaviour
                 Vector3 direction = transform.position - playerTf.position;
                 //Goc giua enemy va player
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                Debug.Log($"Angle {angle}");
+                //Debug.Log($"Angle {angle}");
                 //Tinh toan goc xoay mong muon de xoay enemy
                 //angle: gia tri goc xoay
                 //axis: xoay quanh truc nao

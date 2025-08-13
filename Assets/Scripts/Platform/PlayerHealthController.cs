@@ -9,13 +9,24 @@ public class PlayerHealthController : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+
+        if(UIManager.Instance != null)
+        {
+            UIManager.Instance.GamePanel.SetMaxHealth(maxHealth);
+            UIManager.Instance.GamePanel.UpdateHealth(currentHealth);
+        }
     }
 
     public void DamagePlayer(int damageAmount)
     {
         currentHealth -= damageAmount;
 
-        if(currentHealth <= 0)
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.GamePanel.UpdateHealth(currentHealth);
+        }
+
+        if (currentHealth <= 0)
         {
             gameObject.SetActive(false);
         }
