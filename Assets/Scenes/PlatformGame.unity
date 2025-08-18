@@ -1300,6 +1300,50 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &723773051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 723773053}
+  - component: {fileID: 723773052}
+  m_Layer: 0
+  m_Name: RespawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &723773052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723773051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98446b5eef7b54271b9b8e0b87b57315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &723773053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723773051}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &766966904
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,6 +2285,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
+  invicibilityTime: 2
+  flashTime: 0.1
+  playerSprites:
+  - {fileID: 1947865941}
+  - {fileID: 683303293}
+  playerDeathEffect: {fileID: 4291747755491781741, guid: 31edaf692e8c0446d9f2a4f45db8f3b2, type: 3}
 --- !u!1 &1203726501
 GameObject:
   m_ObjectHideFlags: 0
@@ -5541,3 +5591,4 @@ SceneRoots:
   - {fileID: 294768958}
   - {fileID: 622141174}
   - {fileID: 1718785954}
+  - {fileID: 723773053}
