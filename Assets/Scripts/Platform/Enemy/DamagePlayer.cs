@@ -29,7 +29,7 @@ public class DamagePlayer : MonoBehaviour
 
     private void DealDamage(PlayerHealthController playerHealth)
     {
-        if (playerHealth != null)
+        if (playerHealth != null) //check null
         {
             playerHealth.DamagePlayer(damageAmount);
 
