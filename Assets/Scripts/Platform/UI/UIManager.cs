@@ -1,24 +1,15 @@
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : BaseManager<UIManager>
 {
-    public static UIManager Instance;
 
     public GamePanel GamePanel;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-
-        DontDestroyOnLoad(this.gameObject);
+        base.Awake();
     }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

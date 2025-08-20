@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-public class RespawnManager : MonoBehaviour
+public class RespawnManager : BaseManager<RespawnManager>
 {
     [SerializeField]
     private float respawnTime;
@@ -12,25 +13,35 @@ public class RespawnManager : MonoBehaviour
     [SerializeField]
     private Transform respawnPoint;
 
-    public void Respawn()
+    protected override void Awake()
     {
-        StartCoroutine(RespawnCo());
-
-        //StopCoroutine(RespawnCo());
-        //StopAllCoroutines();
+        base.Awake();
     }
 
-    private IEnumerator RespawnCo()
+    private void Start()
+    {
+        playerTf = GameObject.FindGameObjectWithTag("Player").transform;
+        SetRespawnPoint(playerTf);
+    }
+
+    public void Respawn(Action onComplete = null)
+    {
+        StartCoroutine(RespawnCo(onComplete));
+    }
+
+    private IEnumerator RespawnCo(Action onComplete = null)
     {
         playerTf.gameObject.SetActive(false);
         yield return new WaitForSeconds(respawnTime);
         playerTf.position = respawnPoint.position;
         playerTf.gameObject.SetActive(true);
 
-        if(UIManager.Instance != null)
+        if(UIManager.HasInstance)
         {
             UIManager.Instance.GamePanel.ResetHealth();
         }
+
+        onComplete?.Invoke();
     }
 
     public void SetRespawnPoint(Transform newRespawnPosition)

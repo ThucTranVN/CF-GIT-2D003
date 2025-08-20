@@ -25,7 +25,7 @@ public class PlayerHealthController : MonoBehaviour
     {
         currentHealth = maxHealth;
 
-        if(UIManager.Instance != null)
+        if(UIManager.HasInstance)
         {
             UIManager.Instance.GamePanel.SetMaxHealth(maxHealth);
             UIManager.Instance.GamePanel.UpdateHealth(currentHealth);
@@ -61,13 +61,28 @@ public class PlayerHealthController : MonoBehaviour
         }
     }
 
+    public void HealPlayer(int healthAmount)
+    {
+        currentHealth += healthAmount;
+
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        if (UIManager.HasInstance)
+        {
+            UIManager.Instance.GamePanel.UpdateHealth(currentHealth);
+        }
+    }
+
     public void DamagePlayer(int damageAmount)
     {
         if(invicCounter <= 0)
         {
             currentHealth -= damageAmount;
 
-            if (UIManager.Instance != null)
+            if (UIManager.HasInstance)
             {
                 UIManager.Instance.GamePanel.UpdateHealth(currentHealth);
             }
@@ -76,13 +91,20 @@ public class PlayerHealthController : MonoBehaviour
             {
                 Instantiate(playerDeathEffect, transform.position, transform.rotation);
 
-                //Respawn:TODO
-                gameObject.SetActive(false);
+                if(RespawnManager.HasInstance)
+                {
+                    RespawnManager.Instance.Respawn(SetMaxHealth);
+                }
             }
             else
             {
                 invicCounter = invicibilityTime;
             }
         }  
+    }
+
+    private void SetMaxHealth()
+    {
+        currentHealth = maxHealth;
     }
 }
