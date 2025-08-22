@@ -2309,6 +2309,7 @@ GameObject:
   - component: {fileID: 1133399603}
   - component: {fileID: 1133399604}
   - component: {fileID: 1133399605}
+  - component: {fileID: 1133399606}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -2434,6 +2435,21 @@ MonoBehaviour:
   - {fileID: 1947865941}
   - {fileID: 683303293}
   playerDeathEffect: {fileID: 4291747755491781741, guid: 31edaf692e8c0446d9f2a4f45db8f3b2, type: 3}
+--- !u!114 &1133399606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133399600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0794a38aa1e6d40eeae0327381834627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPool: []
+  objectToPool: {fileID: 4590762559659306671, guid: 0810a542e691741ea8de79926caa32cd, type: 3}
+  amountToPool: 30
 --- !u!1 &1203726501
 GameObject:
   m_ObjectHideFlags: 0

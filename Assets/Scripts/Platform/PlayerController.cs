@@ -144,9 +144,13 @@ public class PlayerController : MonoBehaviour
         {
             if (goStanding.activeSelf)
             {
-                BulletController bullet = Instantiate(bulletPrefab, shootPosition.position, shootPosition.rotation);
-                bullet.SetDirection(new Vector2(transform.localScale.x, 0));
-                animStandingState.SetTrigger(shotParam);
+                if (BulletManager.HasInstance)
+                {
+                    BulletController bullet = BulletManager.Instance.GetBullet();
+                    bullet.Active(shootPosition.position, new Vector2(transform.localScale.x, 0));
+                    animStandingState.SetTrigger(shotParam);
+                }
+                
             }
             else if (goBall.activeSelf && playerAbilityTracker.IsCanDropBomb)
             {

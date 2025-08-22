@@ -13,15 +13,19 @@ public class BulletController : MonoBehaviour
     [SerializeField]
     private int damageAmount = 1;
 
+    private bool isActive = false;
+    public bool IsActive => isActive;
+
     // Update is called once per frame
     void Update()
     {
+        if (!isActive) return;
         BulletRb.linearVelocity = BulletDirection * BulletSpeed;
     }
 
-    public void SetDirection(Vector2 newDirection)
+    void OnBecameInvisible()
     {
-        BulletDirection = newDirection;
+        DeActive();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,13 +35,32 @@ public class BulletController : MonoBehaviour
             //collision.GetComponent<EnemyHealthController>().DamageEnemy(damageAmount);
 
             EnemyHealthController enemyHealth = collision.GetComponent<EnemyHealthController>();
-            if(enemyHealth != null)
+            if (enemyHealth != null)
             {
                 enemyHealth.DamageEnemy(damageAmount);
             }
         }
 
         Instantiate(impactEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        DeActive();
+    }
+
+    public void Active(Vector2 initPosition, Vector2 newDirection)
+    {
+        isActive = true;
+        this.gameObject.SetActive(true);
+        this.transform.position = initPosition;
+        this.transform.SetParent(null);
+        BulletDirection = newDirection;
+    }
+
+    public void DeActive()
+    {
+        isActive = false;
+        this.transform.position = Vector3.zero;
+        this.gameObject.SetActive(false);
+        BulletRb.linearVelocity = Vector2.zero;
+        BulletDirection = Vector2.zero;
+        this.transform.SetParent(BulletManager.Instance.transform);
     }
 }
