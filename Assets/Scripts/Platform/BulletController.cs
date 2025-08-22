@@ -41,6 +41,15 @@ public class BulletController : MonoBehaviour
             }
         }
 
+        if (collision.CompareTag("Boss"))
+        {
+            BossHealthController bossHealth = collision.GetComponentInParent<BossHealthController>();
+            if(bossHealth != null)
+            {
+                bossHealth.TakeDamage(damageAmount);
+            }
+        }
+
         Instantiate(impactEffect, transform.position, Quaternion.identity);
         DeActive();
     }

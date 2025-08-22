@@ -5,12 +5,16 @@ public class GamePanel : MonoBehaviour
 {
     [SerializeField]
     private Slider playerHealthSlider;
+    [SerializeField]
+    private Slider bossHealthSlider;
+    [SerializeField]
+    private GameObject bossHealthGo;
 
-    private int maxHealth;
+    private int playerMaxHealth;
 
     public void SetMaxHealth(int maxHealthValue)
     {
-        maxHealth = maxHealthValue;
+        playerMaxHealth = maxHealthValue;
         playerHealthSlider.maxValue = maxHealthValue;
     }
 
@@ -21,6 +25,21 @@ public class GamePanel : MonoBehaviour
 
     public void ResetHealth()
     {
-        UpdateHealth(maxHealth);
+        UpdateHealth(playerMaxHealth);
+    }
+
+    public void ActiveBossHealth(bool status)
+    {
+        bossHealthGo.SetActive(status);
+    }
+
+    public void SetBossMaxHealth(int maxHealthValue)
+    {
+        bossHealthSlider.maxValue = maxHealthValue;
+    }
+
+    public void UpdateBossHealth(int currentHealthValue)
+    {
+        bossHealthSlider.value = currentHealthValue;
     }
 }
