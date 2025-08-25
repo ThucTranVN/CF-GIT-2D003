@@ -3,6 +3,7 @@ using UnityEngine;
 public class BossHealthController : MonoBehaviour
 {
     private int currentHealth;
+    public int CurrentHealth => currentHealth;
     [SerializeField]
     private int maxHealth;
 
