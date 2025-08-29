@@ -16,6 +16,11 @@ public class MenuPanel : MonoBehaviour
         {
             UIManager.Instance.SettingPanel.gameObject.SetActive(true);
         }
+
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(AUDIO.SE_BTNCLICK123);
+        }
     }
 
     public void OnClickQuitGame()

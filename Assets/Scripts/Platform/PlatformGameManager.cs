@@ -11,6 +11,16 @@ public class PlatformGameManager : BaseManager<PlatformGameManager>
         base.Awake();
     }
 
+    private void Start()
+    {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlayBGM(AUDIO.BGM_BGM_01);
+        }
+
+        Time.timeScale = 0;
+    }
+
     public void StartGame()
     {
         if (UIManager.HasInstance)
@@ -19,10 +29,7 @@ public class PlatformGameManager : BaseManager<PlatformGameManager>
             UIManager.Instance.MenuPanel.gameObject.SetActive(false);
         }
 
-        if (AudioManager.HasInstance)
-        {
-            AudioManager.Instance.PlayBGM(AUDIO.BGM_BGM_01);
-        }
+        Time.timeScale = 1;
     }
 
     public void PauseGame()
