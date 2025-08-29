@@ -2,10 +2,17 @@ using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
 {
-    [SerializeField]
     private int healthPickupAmount;
     [SerializeField]
-    private GameObject pickupEffect; 
+    private GameObject pickupEffect;
+
+    void Start()
+    {
+        if (DataManager.HasInstance)
+        {
+            healthPickupAmount = DataManager.Instance.GlobalConfig.HealthPickupAmount;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

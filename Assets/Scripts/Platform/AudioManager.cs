@@ -57,15 +57,15 @@ public class AudioManager : BaseManager<AudioManager>
     private void Start()
 	{
 		AttachBGMSource.volume = PlayerPrefs.GetFloat(BGM_VOLUME_KEY, BGM_VOLUME_DEFAULT);
-		Debug.Log($"AttachBGMSource volume: {AttachBGMSource.volume}");
+		//Debug.Log($"AttachBGMSource volume: {AttachBGMSource.volume}");
 		AttachSESource.volume = PlayerPrefs.GetFloat(SE_VOLUME_KEY, SE_VOLUME_DEFAULT);
-		Debug.Log($"AttachSESource: volume: {AttachSESource.volume}");
+		//Debug.Log($"AttachSESource: volume: {AttachSESource.volume}");
 		bool isMuteBgm = (PlayerPrefs.GetInt(BGM_MUTE_KEY, BGM_MUTE_DEFAULT) == BGM_MUTE_DEFAULT) ? false : true;
 		AttachBGMSource.mute = isMuteBgm;
-		Debug.Log($"AttachBGMSource mute: {AttachBGMSource.mute}");
+		//Debug.Log($"AttachBGMSource mute: {AttachBGMSource.mute}");
 		bool isMuteSe = (PlayerPrefs.GetInt(SE_MUTE_KEY, SE_MUTE_DEFAULT) == BGM_MUTE_DEFAULT) ? false : true;
 		AttachSESource.mute = isMuteSe;
-		Debug.Log($"AttachSESource mute: {AttachSESource.mute}");
+		//Debug.Log($"AttachSESource mute: {AttachSESource.mute}");
 	}
 
 	public void PlaySE(string seName, float delay = 0.0f)
@@ -164,7 +164,7 @@ public class AudioManager : BaseManager<AudioManager>
 
 		PlayerPrefs.SetInt(BGM_MUTE_KEY, isMuteValue);
 
-		Debug.Log($"AttachBGMSource mute: {PlayerPrefs.GetInt(BGM_MUTE_KEY)}");
+		//Debug.Log($"AttachBGMSource mute: {PlayerPrefs.GetInt(BGM_MUTE_KEY)}");
 	}
 
 	public void MuteSE(bool isMute)
@@ -180,6 +180,6 @@ public class AudioManager : BaseManager<AudioManager>
 
 		PlayerPrefs.SetInt(SE_MUTE_KEY, isMuteValue);
 
-		Debug.Log($"AttachSESource mute: {PlayerPrefs.GetInt(SE_MUTE_KEY)}");
+		//Debug.Log($"AttachSESource mute: {PlayerPrefs.GetInt(SE_MUTE_KEY)}");
 	}
 }
