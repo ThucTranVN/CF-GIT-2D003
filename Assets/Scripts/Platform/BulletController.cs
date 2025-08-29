@@ -22,11 +22,12 @@ public class BulletController : MonoBehaviour
         if (!isActive) return;
         BulletRb.linearVelocity = BulletDirection * BulletSpeed;
     }
-
+#if !UNITY_EDITOR
     void OnBecameInvisible()
     {
         DeActive();
     }
+#endif
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

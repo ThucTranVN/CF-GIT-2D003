@@ -13,6 +13,9 @@ public class RespawnManager : BaseManager<RespawnManager>
     [SerializeField]
     private Transform respawnPoint;
 
+    [SerializeField]
+    private Transform defaultPos;
+
     protected override void Awake()
     {
         base.Awake();
@@ -21,6 +24,7 @@ public class RespawnManager : BaseManager<RespawnManager>
     private void Start()
     {
         playerTf = GameObject.FindGameObjectWithTag("Player").transform;
+        defaultPos.position = playerTf.position;
         SetRespawnPoint(playerTf);
     }
 
@@ -48,4 +52,10 @@ public class RespawnManager : BaseManager<RespawnManager>
     {
         respawnPoint.position = newRespawnPosition.position;
     }
+
+    public void SetDefaultPosition()
+    {
+        respawnPoint.position = defaultPos.position;
+    }
+
 }

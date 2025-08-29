@@ -29,9 +29,9 @@ public class BossHealthController : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            if (UIManager.HasInstance)
+            if (PlatformGameManager.HasInstance)
             {
-                UIManager.Instance.GamePanel.ActiveBossHealth(false);
+                PlatformGameManager.Instance.WinGame();
             }
 
             //Death

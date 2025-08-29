@@ -146,6 +146,10 @@ public class PlayerController : MonoBehaviour
             {
                 if (BulletManager.HasInstance)
                 {
+                    if (AudioManager.HasInstance)
+                    {
+                        AudioManager.Instance.PlaySE(AUDIO.SE_COLLECT);
+                    }
                     BulletController bullet = BulletManager.Instance.GetBullet();
                     bullet.Active(shootPosition.position, new Vector2(transform.localScale.x, 0));
                     animStandingState.SetTrigger(shotParam);

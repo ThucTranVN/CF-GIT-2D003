@@ -2,24 +2,23 @@ using UnityEngine;
 
 public class UIManager : BaseManager<UIManager>
 {
-
     public GamePanel GamePanel;
+    public MenuPanel MenuPanel;
+    public WinPanel WinPanel;
+    public LoosePanel LoosePanel;
+    public SettingPanel SettingPanel;
 
     protected override void Awake()
     {
         base.Awake();
     }
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        MenuPanel.gameObject.SetActive(true);
+        WinPanel.gameObject.SetActive(false);
+        LoosePanel.gameObject.SetActive(false);
+        SettingPanel.gameObject.SetActive(false);
+        GamePanel.gameObject.SetActive(false);
     }
 }

@@ -50,6 +50,7 @@ public class BossController : MonoBehaviour
     void Start()
     {
         activeTimeCounter = activeTime;
+        shootCounter = timeBetweenShootPhase1;
     }
 
     // Update is called once per frame
@@ -65,6 +66,13 @@ public class BossController : MonoBehaviour
                 {
                     disAppearTimeCounter = disAppearTime;
                     bossAnim.SetTrigger(VANISH_PARAM);
+                }
+
+                shootCounter -= Time.deltaTime;
+                if(shootCounter <= 0)
+                {
+                    shootCounter = timeBetweenShootPhase1;
+                    Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
                 }
             }
             else if(disAppearTimeCounter > 0)
@@ -84,6 +92,7 @@ public class BossController : MonoBehaviour
                     theBoss.position = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
                     theBoss.gameObject.SetActive(true);
                     activeTimeCounter = activeTime;
+                    shootCounter = timeBetweenShootPhase1;
                 }
             }
         }
@@ -106,6 +115,13 @@ public class BossController : MonoBehaviour
                     {
                         disAppearTimeCounter = disAppearTime;
                         bossAnim.SetTrigger(VANISH_PARAM);
+                    }
+
+                    shootCounter -= Time.deltaTime;
+                    if (shootCounter <= 0)
+                    {
+                        shootCounter = timeBetweenShootPhase2;
+                        Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
                     }
                 }
                 else if (disAppearTimeCounter > 0)
@@ -134,6 +150,8 @@ public class BossController : MonoBehaviour
                         }
 
                         theBoss.gameObject.SetActive(true);
+
+                        shootCounter = timeBetweenShootPhase2;
                     }
                 }
             }

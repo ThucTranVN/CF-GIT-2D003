@@ -28,11 +28,18 @@ public class EnemyFlyerController : MonoBehaviour
         if (!isChasing)// Neu dang ko di chuyen toi player
         {
             //Tinh toan khoang cach toi player
-            if(Vector3.Distance(transform.position, playerTf.position) < chaseRange)
+            if (playerTf != null)
             {
-                isChasing = true;
-                enemyAnim.SetBool(IsChasingParam, isChasing);
+                if (Vector3.Distance(transform.position, playerTf.position) < chaseRange)
+                {
+                    isChasing = true;
+                    enemyAnim.SetBool(IsChasingParam, isChasing);
+                }
             }
+            else
+            {
+                playerTf = GameObject.FindGameObjectWithTag("Player").transform;
+            }   
         }
         else
         {

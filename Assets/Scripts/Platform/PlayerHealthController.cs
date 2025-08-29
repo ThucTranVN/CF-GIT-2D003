@@ -91,9 +91,14 @@ public class PlayerHealthController : MonoBehaviour
             {
                 Instantiate(playerDeathEffect, transform.position, transform.rotation);
 
-                if(RespawnManager.HasInstance)
+                //if(RespawnManager.HasInstance)
+                //{
+                //    RespawnManager.Instance.Respawn(SetMaxHealth);
+                //}
+
+                if (PlatformGameManager.HasInstance)
                 {
-                    RespawnManager.Instance.Respawn(SetMaxHealth);
+                    PlatformGameManager.Instance.LooseGame();
                 }
             }
             else
