@@ -148,10 +148,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812fc5aacfcc4400692f831a74ee540e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 5
-  Height: 10
+  Width: 6
+  Height: 6
   TilePrefab: {fileID: 1913291555575387074, guid: 2bb42b0b56f6a4705a134536e74e523f, type: 3}
   BorderSize: 2
+  GamePiecePrefab:
+  - {fileID: 6130457563948247732, guid: 408c2ba301a58416c9d5836ecb142e00, type: 3}
+  - {fileID: 106212850011213335, guid: 615203f6a0711406f9ab1f62246f5834, type: 3}
+  - {fileID: 7457491789390899782, guid: 5c4bc120c74744577bd0148efb53cd50, type: 3}
+  - {fileID: 4879901433482443611, guid: 6f6e42d4c42874a62b87cf83c4a8f98a, type: 3}
+  - {fileID: 6800894055622832512, guid: 02dbeaee9df4f45dea1f251d44de4877, type: 3}
+  - {fileID: 4367439625957077150, guid: b73e41f90f14b43c89e19670c9a560e0, type: 3}
 --- !u!4 &1999411946
 Transform:
   m_ObjectHideFlags: 0
@@ -203,8 +210,8 @@ Camera:
   m_GameObject: {fileID: 2046229819}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
