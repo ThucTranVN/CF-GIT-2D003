@@ -10,6 +10,9 @@ public class BoardManager : BaseManager<BoardManager>
     public GamePiece[,] AllGamePieces;
     public GameObject[] GamePiecePrefab;
 
+    private Tile clickedTile;
+    private Tile targetTile;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -89,5 +92,36 @@ public class BoardManager : BaseManager<BoardManager>
                 }
             }
         }
+    }
+
+    public void ClickTile(Tile tile)
+    {
+        if(clickedTile == null)
+        {
+            clickedTile = tile;
+            Debug.Log($"Clicked Tile: {tile.name}");
+        }
+    }
+
+    public void DragToTile(Tile tile)
+    {
+        if(clickedTile != null)
+        {
+            targetTile = tile;
+            Debug.Log($"Drag to Tile: {tile.name}");
+        }
+    }
+
+    public void ReleaseTile()
+    {
+        if(clickedTile != null && targetTile != null)
+        {
+            SwitchTiles(clickedTile, targetTile);
+        }
+    }
+
+    private void SwitchTiles(Tile clickedTile, Tile targetTile)
+    {
+
     }
 }

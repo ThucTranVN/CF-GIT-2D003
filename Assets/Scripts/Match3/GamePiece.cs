@@ -65,9 +65,9 @@ public class GamePiece : MonoBehaviour
 
             float t = Mathf.Clamp(elapsedTime / timeToMove, 0f, 1f);
 
-            //t = Mathf.Sin(t * Mathf.PI * 0.5f);
+            //t = Mathf.Sin(t * Mathf.PI * 0.5f); //Ease out
 
-            //t = 1 - Mathf.Cos(t * Mathf.PI * 0.5f);
+            //t = 1 - Mathf.Cos(t * Mathf.PI * 0.5f); //Ease in
 
             //t = t * t * (3 - 2 * t); //SmoothStep
 
